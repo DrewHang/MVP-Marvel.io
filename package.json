@@ -1,0 +1,40 @@
+{
+  "name": "mvp-marvel.io",
+  "version": "1.0.0",
+  "description": "MVP Solo Project using React, Three.js, React Three Fiber, and Drei",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/index.js",
+    "build": "webpack --config ./webpack.config.js --mode development -w"
+  },
+  "repository": {
+    "url": "git+https://github.com/DrewHang/MVP-Marvel.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DrewHang/MVP-Marvel.io/issues"
+  },
+  "homepage": "https://github.com/DrewHang/MVP-Marvel.io#readme",
+  "dependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/plugin-transform-modules-commonjs": "^7.15.4",
+    "@babel/plugin-transform-runtime": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-react": "^7.14.5",
+    "@react-three/drei": "^7.13.1",
+    "@react-three/fiber": "^7.0.15",
+    "axios": "^0.22.0",
+    "babel-loader": "^8.2.2",
+    "dat.gui": "^0.7.7",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.13",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "regenerator-runtime": "^0.13.9",
+    "three": "^0.133.1",
+    "webpack": "^5.58.1",
+    "webpack-cli": "^4.9.0"
+  }
+}
