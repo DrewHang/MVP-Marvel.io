@@ -1,16 +1,26 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Header from './Header.jsx';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import GwenInfo from './GwenInfo.jsx'
+import Homepage from './Homepage.jsx'
 import * as dat from 'dat.gui';
+
 export default function App() {
 
+  const [page, setPage] = useState(true)
   const modelRef = useRef();
 
-  useEffect(() => {
+  const handlePage = () => {
+    setPage(false)
+  }
+
+  const renderModel = () => {
     const scene = new THREE.Scene();
+    scene.environment = new THREE.Color(0xFFFFFF)
     const camera = new THREE.PerspectiveCamera(75, modelRef.current.clientWidth / modelRef.current.clientHeight, 0.1, 10000);
+
 
     const renderer = new THREE.WebGLRenderer({ alpha: true });
     renderer.setClearColor( 0x000000, 0 );
@@ -23,7 +33,6 @@ export default function App() {
 
     const loader = new GLTFLoader();
 
-    // const sceneObj = {};
 
     loader.load(
       // resource URL
@@ -31,7 +40,6 @@ export default function App() {
       // called when the resource is loaded
       function ( gltf ) {
 
-        // scene.add( gltf.scene );
         group.add(gltf.scene)
 
         gltf.animations; // Array<THREE.AnimationClip>
@@ -60,7 +68,7 @@ export default function App() {
     const helper = new THREE.PointLightHelper( light, 30);
     light.position.set(5, 50, -10);
 
-    const light3 = new THREE.PointLight(color, 8);
+    const light3 = new THREE.PointLight(color, 6);
     const helper3 = new THREE.PointLightHelper( light3, 30);
     light3.position.set(5, 250, -500);
 
@@ -73,34 +81,42 @@ export default function App() {
     ambientLight.intensity = .85;
 
     group.add(light, light2, light3, helper, helper2, helper3, ambientLight);
+    // group.add(ambientLight);
     scene.add(group);
 
     // scene.add(ambientLight)
     // scene.add(light, light2, light3);
     // scene.add( helper, helper2, helper3 );
 
-    camera.position.z = 500;
-    camera.position.y = 200;
+    // camera.position.z = 500;
+    // camera.position.y = 200;
 
-    // const controls = new OrbitControls( camera, renderer.domElement );
+    const controls = new OrbitControls( camera, renderer.domElement );
+    camera.position.set( 0, 450, 550 );
 
     const animate = function () {
       requestAnimationFrame( animate );
 
       group.rotateY(0.01);
 
-      // controls.update();
+      controls.update();
       renderer.render( scene, camera );
     };
 
     animate();
+  }
+
+  useEffect(() => {
+    renderModel()
   }, []);
 
   return (
     <>
       <Header />
-      <div style={{width: '100vw', height:'100vh'}} ref={modelRef}>
-
+      <Homepage pageStatus={page} handlePage={handlePage}/>
+      <div style={!page ? {width: '100vw', height:'100vh', transitionProperty: 'opacity', transitionDuration: '2s'} :
+      {width: '100vw', height:'100vh', opacity: '0'}} ref={modelRef}>
+      <GwenInfo />
       </div>
     </>
   )
