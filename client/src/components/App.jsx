@@ -1,22 +1,40 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Header from './Header.jsx';
+import React, { useEffect, useRef, useState, useReducer } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import * as dat from 'dat.gui';
+import Header from './Header.jsx';
 import GwenInfo from './GwenInfo.jsx'
 import Homepage from './Homepage.jsx'
-import * as dat from 'dat.gui';
+
 
 export default function App() {
-
-  const [page, setPage] = useState(true)
+  const [page, setPage] = useState(true);
+  const [lightbulb, setlightbulb] = useState(true);
   const modelRef = useRef();
+  const ambientRef = useRef({});
 
   const handlePage = () => {
     setPage(false)
   }
 
-  const renderModel = () => {
+  const toggleLightOff = () => {
+    setlightbulb(!lightbulb)
+    ambientRef.current.ambient.intensity = 0;
+    ambientRef.current.lightOne.intensity = 0;
+    ambientRef.current.lightTwo.intensity = 0;
+    ambientRef.current.lightThree.intensity = 0;
+  }
+
+  const toggleLightOn = () => {
+    setlightbulb(!lightbulb)
+    ambientRef.current.ambient.intensity = .85;
+    ambientRef.current.lightOne.intensity = 3;
+    ambientRef.current.lightTwo.intensity = 7;
+    ambientRef.current.lightThree.intensity = 6;
+  }
+
+  const renderGwenModel = (ambient, lightOne, lightTwo, lightThree) => {
     const scene = new THREE.Scene();
     scene.environment = new THREE.Color(0xFFFFFF)
     const camera = new THREE.PerspectiveCamera(75, modelRef.current.clientWidth / modelRef.current.clientHeight, 0.1, 10000);
@@ -64,35 +82,46 @@ export default function App() {
     );
     const color = 0xFFFFFF;
     const intensity = 5;
-    const light = new THREE.PointLight(color, 3);
-    const helper = new THREE.PointLightHelper( light, 30);
+
+    let light = new THREE.PointLight(color, 3);
+    ambientRef.current.lightOne = light
+    // const helper = new THREE.PointLightHelper( light, 30);
     light.position.set(5, 50, -10);
 
-    const light3 = new THREE.PointLight(color, 6);
-    const helper3 = new THREE.PointLightHelper( light3, 30);
-    light3.position.set(5, 250, -500);
-
-    const light2 = new THREE.PointLight(color, 7);
-    const helper2 = new THREE.PointLightHelper( light2, 30);
+    let light2 = new THREE.PointLight(color, 7);
+    ambientRef.current.lightTwo = light2
+    // const helper2 = new THREE.PointLightHelper( light2, 30);
     light2.position.set(5, 240, 5);
+
+    let light3 = new THREE.PointLight(color, 6);
+    ambientRef.current.lightThree = light3
+    // const helper3 = new THREE.PointLightHelper( light3, 30);
+    light3.position.set(5, 250, -500);
 
 
     const ambientLight = new THREE.AmbientLight(0xFFFFFF);
     ambientLight.intensity = .85;
+    ambientRef.current.ambient = ambientLight;
 
-    group.add(light, light2, light3, helper, helper2, helper3, ambientLight);
-    // group.add(ambientLight);
+
+    group.add(light, light2, light3, ambientLight);
+
     scene.add(group);
 
-    // scene.add(ambientLight)
-    // scene.add(light, light2, light3);
-    // scene.add( helper, helper2, helper3 );
-
-    // camera.position.z = 500;
-    // camera.position.y = 200;
-
     const controls = new OrbitControls( camera, renderer.domElement );
-    camera.position.set( 0, 450, 550 );
+    camera.position.set( 0, 390, 550 );
+
+    window.addEventListener( 'resize', onWindowResize, false );
+
+    function onWindowResize(){
+
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize( window.innerWidth, window.innerHeight );
+
+    }
+
 
     const animate = function () {
       requestAnimationFrame( animate );
@@ -107,14 +136,16 @@ export default function App() {
   }
 
   useEffect(() => {
-    renderModel()
+    renderGwenModel()
   }, []);
 
   return (
     <>
-      <Header />
+      <Header pageStatus={page} toggleLightOn={toggleLightOn} toggleLightOff={toggleLightOff} lightbulb={lightbulb} />
       <Homepage pageStatus={page} handlePage={handlePage}/>
-      <div style={!page ? {width: '100vw', height:'100vh', transitionProperty: 'opacity', transitionDuration: '2s'} :
+      <div style={!page ? {width: '100vw', height:'100vh', position: 'fixed',
+      transitionProperty: 'opacity', transitionDuration: '2s',
+      backgroundImage: 'url(./background.png)', backgroundRepeat:'no-repeat', backgroundSize: 'cover'} :
       {width: '100vw', height:'100vh', opacity: '0'}} ref={modelRef}>
       <GwenInfo />
       </div>
