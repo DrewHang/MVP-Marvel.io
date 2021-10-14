@@ -1,0 +1,11 @@
+Model Information:
+* title:	Miles Morales
+* source:	https://sketchfab.com/3d-models/miles-morales-459104cc7c8d4e3886866e729c36f8ce
+* author:	Brad Groatman (https://sketchfab.com/groatman)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Miles Morales" (https://sketchfab.com/3d-models/miles-morales-459104cc7c8d4e3886866e729c36f8ce) by Brad Groatman (https://sketchfab.com/groatman) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
