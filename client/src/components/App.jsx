@@ -15,6 +15,7 @@ export default function App() {
   const [helper, setHelper] = useState(true)
   const modelRef = useRef();
   const ambientRef = useRef({});
+  const ambientTwoRef = useRef({});
   const helperRef = useRef({});
   const sceneRef = useRef();
   const groupRef = useRef();
@@ -61,6 +62,10 @@ export default function App() {
     ambientRef.current.lightOne.intensity = 0;
     ambientRef.current.lightTwo.intensity = 0;
     ambientRef.current.lightThree.intensity = 0;
+    ambientTwoRef.current.ambient.intensity = 0;
+    ambientTwoRef.current.lightOne.intensity = 0;
+    ambientTwoRef.current.lightTwo.intensity = 0;
+    ambientTwoRef.current.lightThree.intensity = 0;
   }
 
   const toggleLightOn = () => {
@@ -69,6 +74,10 @@ export default function App() {
     ambientRef.current.lightOne.intensity = 3;
     ambientRef.current.lightTwo.intensity = 7;
     ambientRef.current.lightThree.intensity = 6;
+    ambientTwoRef.current.ambient.intensity = .85;
+    ambientTwoRef.current.lightOne.intensity = 3;
+    ambientTwoRef.current.lightTwo.intensity = 7;
+    ambientTwoRef.current.lightThree.intensity = 6;
   }
 
   const renderGwenModel = (ambient, lightOne, lightTwo, lightThree) => {
@@ -173,19 +182,23 @@ export default function App() {
     // Spider-Man Lighting
 
     let lightSpider = new THREE.PointLight(color, 3);
+    ambientTwoRef.current.lightOne = lightSpider
 
     lightSpider.position.set(5, 50, -10);
 
     let light2Spider = new THREE.PointLight(color, 7);
+    ambientTwoRef.current.lightTwo = light2Spider
 
     light2Spider.position.set(5, 240, 5);
 
     let light3Spider = new THREE.PointLight(color, 6);
+    ambientTwoRef.current.lightThree = light3Spider
 
     light3Spider.position.set(5, 250, -500);
 
 
     const ambientLightSpider = new THREE.AmbientLight(0xFFFFFF);
+    ambientTwoRef.current.ambient = ambientLightSpider
     ambientLightSpider.intensity = .85;
 
 

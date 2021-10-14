@@ -15,9 +15,9 @@ export default function Homepage({pageStatus, handlePage}) {
                 </p>
               </main>
             </div>
-            <footer style={{position: 'absolute', bottom: '0'}}>
+            <footer style={{bottom: '0', display: 'flex', justifyContent:'center'}}>
                 <div className="inner">
-                <p style={{color: 'white'}}>Credits to <a href="https://sketchfab.com/3d-models/spider-gwen-e8219faa3042417586c5580b2e219a18">Mora</a> & <a href="https://sketchfab.com/3d-models/miles-morales-459104cc7c8d4e3886866e729c36f8ce">Brad Groatman</a> for the models</p>
+                <p style={{color: 'white', zIndex: '1'}}>Credits to <a href="https://sketchfab.com/3d-models/spider-gwen-e8219faa3042417586c5580b2e219a18">Mora</a> & <a href="https://sketchfab.com/3d-models/miles-morales-459104cc7c8d4e3886866e729c36f8ce">Brad Groatman</a> for the models</p>
                 </div>
             </footer>
           </div>
