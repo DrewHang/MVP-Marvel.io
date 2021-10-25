@@ -22,8 +22,10 @@ An interactive website showcasing your favorite Marvel superhero.
 </div
 
 # Credits
-  
+ 
+<div>
 Spider Man (Miles Morales) Model - <a href="https://sketchfab.com/groatman">Brad Groatman</a>
+</div>
 Spider-Gwen Model - <a href="https://sketchfab.com/Fopen">Mora</a>
 
 
